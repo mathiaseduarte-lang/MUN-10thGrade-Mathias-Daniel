@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Safe Spaces at Golden Valley School</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #ffffff;
+      color: #333333;
+      line-height: 1.6;
+    }
+
+    header {
+      background: #ffffff;
+      padding: 22px 7%;
+      border-bottom: 1px solid #eeeeee;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .header-content {
+      max-width: 1200px;
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 25px;
+    }
+
+    .logo {
+      color: #12519C;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    nav {
+      display: flex;
+      gap: 25px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #12519C;
+      font-size: 15px;
+      font-weight: bold;
+      transition: color 0.2s ease;
+    }
+
+    nav a:hover {
+      color: #27A0DB;
+    }
+
+    .color-bar {
+      height: 4px;
+      display: flex;
+      width: 100%;
+    }
+
+    .bar-blue-dark {
+      flex: 1;
+      background: #12519C;
+    }
+
+    .bar-blue-light {
+      flex: 1;
+      background: #27A0DB;
+    }
+
+    .bar-yellow {
+      flex: 0.45;
+      background: #F6C401;
+    }
+
+    section {
+      padding: 90px 7%;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    .section-title {
+      color: #12519C;
+      font-size: 32px;
+      margin-bottom: 18px;
+    }
+
+    .section-text {
+      max-width: 750px;
+      font-size: 17px;
+      color: #555555;
+    }
+
+    /* Hero */
+    .hero {
+      min-height: 600px;
+      display: flex;
+      align-items: center;
+      padding-top: 80px;
+      padding-bottom: 80px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.25fr 0.75fr;
+      gap: 70px;
+      align-items: center;
+    }
+
+    .hero h1 {
+      color: #12519C;
+      font-size: clamp(42px, 6vw, 68px);
+      line-height: 1.05;
+      margin-bottom: 25px;
+    }
+
+    .hero p {
+      color: #555555;
+      font-size: 19px;
+      max-width: 650px;
+      margin-bottom: 30px;
+    }
+
+    .help-button {
+      display: inline-block;
+      background: #12519C;
+      color: white;
+      text-decoration: none;
+      padding: 14px 28px;
+      border-radius: 6px;
+      font-weight: bold;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+
+    .help-button:hover {
+      background: #27A0DB;
+      transform: translateY(-2px);
+    }
+
+    .stat-card {
+      border: 1px solid #e5e5e5;
+      border-radius: 12px;
+      padding: 30px;
+      text-align: center;
+      background: #ffffff;
+    }
+
+    .stat-card h2 {
+      color: #12519C;
+      font-size: 22px;
+      margin-bottom: 20px;
+    }
+
+    .pie-container {
+      max-width: 260px;
+      margin: auto;
+    }
+
+    .stat-label {
+      margin-top: 18px;
+      color: #555555;
+      font-size: 14px;
+    }
+
+    /* Safe Space */
+    .signs {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 25px;
+      margin-top: 45px;
+    }
+
+    .sign-card {
+      padding: 30px;
+      border: 1px solid #e8e8e8;
+      border-radius: 10px;
+      background: #ffffff;
+    }
+
+    .icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: #27A0DB;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 23px;
+      margin-bottom: 18px;
+    }
+
+    .sign-card h3 {
+      color: #12519C;
+      margin-bottom: 8px;
+      font-size: 20px;
+    }
+
+    .sign-card p {
+      color: #666666;
+    }
+
+    /* About */
+    .about-box {
+      border-left: 4px solid #27A0DB;
+      padding: 10px 0 10px 30px;
+      max-width: 850px;
+    }
+
+    .about-box p {
+      font-size: 20px;
+      color: #444444;
+    }
+
+    /* Dashboard */
+    .dashboard {
+      background: #fafafa;
+    }
+
+    .charts {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 25px;
+      margin-top: 45px;
+    }
+
+    .chart-card {
+      background: #ffffff;
+      border: 1px solid #e6e6e6;
+      border-radius: 10px;
+      padding: 25px;
+      min-height: 330px;
+    }
+
+    .chart-card:last-child {
+      grid-column: 1 / -1;
+    }
+
+    .chart-card h3 {
+      color: #12519C;
+      margin-bottom: 18px;
+    }
+
+    .chart-wrapper {
+      position: relative;
+      height: 250px;
+    }
+
+    /* Help */
+    .help-section {
+      text-align: center;
+    }
+
+    .help-content {
+      max-width: 800px;
+      margin: auto;
+    }
+
+    .help-content > p {
+      color: #555555;
+      font-size: 18px;
+      margin-bottom: 35px;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      text-align: left;
+    }
+
+    .contact-card {
+      border: 1px solid #e5e5e5;
+      border-radius: 10px;
+      padding: 25px;
+    }
+
+    .contact-card h3 {
+      color: #12519C;
+      margin-bottom: 8px;
+    }
+
+    .contact-card p {
+      color: #555555;
+    }
+
+    .emergency {
+      border-top: 3px solid #F6C401;
+    }
+
+    footer {
+      border-top: 1px solid #eeeeee;
+      text-align: center;
+      padding: 30px 20px;
+      color: #666666;
+      font-size: 14px;
+    }
+
+    /* Mobile */
+    @media (max-width: 800px) {
+      header {
+        position: static;
+      }
+
+      .header-content {
+        flex-direction: column;
+      }
+
+      nav {
+        gap: 12px 18px;
+      }
+
+      section {
+        padding: 65px 6%;
+      }
+
+      .hero {
+        min-height: auto;
+      }
+
+      .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 45px;
+      }
+
+      .hero h1 {
+        font-size: 44px;
+      }
+
+      .signs,
+      .charts,
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .chart-card:last-child {
+        grid-column: auto;
+      }
+
+      .about-box p {
+        font-size: 18px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .logo {
+        font-size: 20px;
+      }
+
+      nav a {
+        font-size: 13px;
+      }
+
+      .hero h1 {
+        font-size: 38px;
+      }
+
+      .section-title {
+        font-size: 28px;
+      }
+
+      .hero p {
+        font-size: 17px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="header-content">
+      <div class="logo">Safe Spaces</div>
+
+      <nav>
+        <a href="#home">Home</a>
+        <a href="#safe-space">What is a Safe Space?</a>
+        <a href="#about">About Us</a>
+        <a href="#dashboard">Dashboard</a>
+        <a href="#help">Get Help</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="color-bar">
+    <div class="bar-blue-dark"></div>
+    <div class="bar-blue-light"></div>
+    <div class="bar-yellow"></div>
+  </div>
+
+  <main>
+
+    <!-- Hero -->
+    <section class="hero" id="home">
+      <div class="container hero-grid">
+
+        <div>
+          <h1>Places where you can be yourself.</h1>
+
+          <p>
+            Safe Spaces at Golden Valley School are places where students
+            can feel comfortable, respected, and supported.
+          </p>
+
+          <a href="#help" class="help-button">Get help</a>
+        </div>
+
+        <div class="stat-card">
+          <h2>Feeling Safe at School</h2>
+
+          <div class="pie-container">
+            <canvas id="pieChart"></canvas>
+          </div>
+
+          <p class="stat-label">
+            Sample data — for demonstration only
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- What is a Safe Space -->
+    <section id="safe-space">
+      <div class="container">
+
+        <h2 class="section-title">What is a Safe Space?</h2>
+
+        <p class="section-text">
+          A safe space is a place where you are not judged and where you
+          are not attacked, either physically or emotionally. It should
+          be somewhere you can feel comfortable and respected.
+        </p>
+
+        <div class="signs">
+
+          <div class="sign-card">
+            <div class="icon">✓</div>
+            <h3>You are chill</h3>
+            <p>
+              You feel relaxed and comfortable instead of worried or pressured.
+            </p>
+          </div>
+
+          <div class="sign-card">
+            <div class="icon">☺</div>
+            <h3>You are happy</h3>
+            <p>
+              You can enjoy being there and feel positive about yourself.
+            </p>
+          </div>
+
+          <div class="sign-card">
+            <div class="icon">★</div>
+            <h3>You can be yourself</h3>
+            <p>
+              You do not have to pretend to be someone else to feel accepted.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- About Us -->
+    <section id="about">
+      <div class="container">
+
+        <h2 class="section-title">About Us</h2>
+
+        <div class="about-box">
+          <p>
+            We are a group of people whose main goal is to make people
+            feel better every day. We want to help create an environment
+            where everyone feels respected, comfortable, and supported.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Dashboard -->
+    <section class="dashboard" id="dashboard">
+      <div class="container">
+
+        <h2 class="section-title">Dashboard</h2>
+
+        <p class="section-text">
+          These charts show sample data related to student experiences.
+          The information shown here is only for demonstration.
+        </p>
+
+        <div class="charts">
+
+          <div class="chart-card">
+            <h3>Sample data — Line Graph</h3>
+            <div class="chart-wrapper">
+              <canvas id="lineChart"></canvas>
+            </div>
+          </div>
+
+          <div class="chart-card">
+            <h3>Sample data — Table Chart</h3>
+            <div class="chart-wrapper">
+              <canvas id="tableChart"></canvas>
+            </div>
+          </div>
+
+          <div class="chart-card">
+            <h3>Sample data — Column Chart</h3>
+            <div class="chart-wrapper">
+              <canvas id="columnChart"></canvas>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Get Help -->
+    <section class="help-section" id="help">
+      <div class="container help-content">
+
+        <h2 class="section-title">Get Help</h2>
+
+        <p>
+          If you don't feel safe, talk to a counselor or another trusted
+          adult. You do not have to deal with a difficult situation alone.
+        </p>
+
+        <div class="contact-grid">
+
+          <div class="contact-card">
+            <h3>Counselor</h3>
+            <p>Mathias or Daniel</p>
+          </div>
+
+          <div class="contact-card">
+            <h3>Email</h3>
+            <p>wellness.correos@goldenvalley.ed.cr</p>
+          </div>
+
+          <div class="contact-card">
+            <h3>Phone</h3>
+            <p>1234-5678</p>
+          </div>
+
+          <div class="contact-card emergency">
+            <h3>Emergency</h3>
+            <p>911</p>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    Golden Valley School, 2026
+  </footer>
+
+  <script>
+    // Pie Chart
+    new Chart(document.getElementById("pieChart"), {
+      type: "pie",
+      data: {
+        labels: ["Feel safe", "Sometimes safe", "Do not feel safe"],
+        datasets: [{
+          data: [65, 25, 10],
+          backgroundColor: ["#12519C", "#27A0DB", "#F6C401"],
+          borderWidth: 0
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: true,
+        plugins: {
+          legend: {
+            position: "bottom"
+          }
+        }
+      }
+    });
+
+    // Line Graph
+    new Chart(document.getElementById("lineChart"), {
+      type: "line",
+      data: {
+        labels: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        datasets: [{
+          label: "Students feeling comfortable",
+          data: [62, 68, 65, 73, 78],
+          borderColor: "#12519C",
+          backgroundColor: "rgba(39, 160, 219, 0.12)",
+          tension: 0.3,
+          fill: true
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+
+    // Table-style chart
+    new Chart(document.getElementById("tableChart"), {
+      type: "bar",
+      data: {
+        labels: ["Friends", "Teachers", "Counselors", "Family"],
+        datasets: [{
+          label: "Students who would ask for support",
+          data: [82, 61, 48, 75],
+          backgroundColor: "#27A0DB"
+        }]
+      },
+      options: {
+        indexAxis: "y",
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          x: {
+            beginAtZero: true,
+            max: 100
+          }
+        }
+      }
+    });
+
+    // Column Chart
+    new Chart(document.getElementById("columnChart"), {
+      type: "bar",
+      data: {
+        labels: ["Comfort", "Respect", "Support", "Belonging"],
+        datasets: [{
+          label: "Sample score",
+          data: [85, 91, 76, 88],
+          backgroundColor: "#12519C"
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          y: {
+            beginAtZero: true,
+            max: 100
+          }
+        }
+      }
+    });
+  </script>
+
+</body>
+</html>
